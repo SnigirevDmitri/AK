@@ -3,18 +3,18 @@
 #include <locale.h>
 #include <time.h>
 #include <omp.h>
-#include <windows.h>
+#include <stdint.h>
 
-double pi_time_opt(double* pi, int accuracy, const UCHAR& threads_number);
+double pi_time_opt(double* pi, int64_t accuracy, const uint8_t& threads_number);
 
 int main() {
    setlocale(LC_CTYPE, "Russian");
 
    double pi;
-   int accuracy;
-   UCHAR threads_number = 0;
+   int64_t accuracy;
+   uint8_t threads_number = 0;
    printf_s("Введите точность вычисления числа Пи(количество членов ряда):\n");
-   scanf_s("%d", &accuracy);
+   scanf_s("%lld", &accuracy);
    printf_s("Введите число потоков:\n");
    scanf_s("%hhu", &threads_number);
    double time = pi_time_opt(&pi, accuracy, threads_number);
@@ -24,10 +24,10 @@ int main() {
    return 0;
 }
 
-double pi_time_opt(double* pi, int accuracy, const UCHAR& threads_number)
+double pi_time_opt(double* pi, int64_t accuracy, const uint8_t& threads_number)
 {
    double pi_here = 1;
-   long long int i;
+   int64_t i;
    clock_t start = clock();
    omp_set_num_threads(threads_number);
 #pragma omp parallel for lastprivate(i) reduction (- : pi_here) shared(accuracy) schedule(guided)
