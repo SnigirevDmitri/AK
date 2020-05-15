@@ -7,9 +7,9 @@
 
 double pi_time_opt(double* pi, int accuracy, const UCHAR& threads_number);
 
-int main() {
+int main() 
+{
    setlocale(LC_CTYPE, "Russian");
-
    double pi;
    int accuracy;
    UCHAR threads_number = 0;
@@ -38,7 +38,6 @@ double pi_time_opt(double* pi, int accuracy, const UCHAR& threads_number)
       pi_here -= 1 / double(2 * accuracy - 1);
    pi_here *= 4;
    *pi = pi_here;
-
    clock_t end = clock();
    return double(end - start) / CLK_TCK;
 }
